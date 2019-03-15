@@ -1,4 +1,6 @@
-{% load static %}
-<link href="{% static 'blog_app/css/bootstrap.min.css' %}" rel="stylesheet">
+{% extends "base.html" %}
 
-<h1 class="text-center">Index page</h1>
+{% block title %} Homepage {% endblock %}
+{% block content %}
+  <h1 class="text-center">Index page</h1>
+{% endblock %}
