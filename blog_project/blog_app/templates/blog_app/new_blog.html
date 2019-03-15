@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Create a new post{% endblock %}
+
+{% block content %}
+<form action="{% url 'new_blog' %}" method="POST">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  <div class="fieldWrapper">
+    {{ form.title.errors }}
+    <label for="{{ form.title.id_for_label }}">Title subject:</label>
+    {{ form.title }}
+  </div>
+  <div class="fieldWrapper">
+    {{ form.message.errors }}
+    <label for="{{ form.content.id_for_label }}">Blog content:</label>
+    {{ form.content }}
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+
+{% endblock content %}
