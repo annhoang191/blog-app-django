@@ -8,5 +8,8 @@ urlpatterns = [
   path("signup", views.signup, name="signup"),
   url(r"^login/$", auth_views.LoginView.as_view(template_name="blog_app/login.html"), name="login"),
   url(r"^logout/$", auth_views.LogoutView.as_view(), {"next_page": "/"}, name="logout"),
-  path("blog/new", views.post_blog, name="new_blog")
+  path("blog/new", views.post_blog, name="new_blog"),
+  path("blog/<int:id>", views.blog_detail, name="blog_detail"),
+  path("blog/<int:id>/edit", views.blog_edit, name="blog_edit"),
+  path("blog/<int:id>/delete", views.blog_delete, name="blog_delete")
 ]

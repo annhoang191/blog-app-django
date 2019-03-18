@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ blog.title }}</h2>
+  {% if blog.author == user %}
+    <span><a href="{% url 'blog_edit' id=blog.id %}">Edit</a></span> ||
+    <span><a href="{% url 'blog_delete' id=blog.id %}">Delete</a></span>
+  {% endif %}
+  <div>
+    <div class="date">
+      <span class="text-muted">{{ blog.date }}</span>
+    </div>
+    <p>{{ blog.content }}</p>
+  </div>
+{% endblock %}
