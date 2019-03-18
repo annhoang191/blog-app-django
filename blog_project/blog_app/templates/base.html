@@ -5,6 +5,7 @@
   <title>{% block title %}Blog With Django{% endblock %}</title>
   {% load static %}
   <link href="{% static 'blog_app/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'blog_app/css/custom.css' %}" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -14,9 +15,9 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'new_blog' %}">Create Post</a></li>
           {% if user.is_authenticated %}
             <li><a href="#">{{ user.username }} </a></li>
-            <li><a href="{% url 'new_blog' %}">Create Post</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
             <li><a href="{% url 'signup' %}">Signup</a></li>
