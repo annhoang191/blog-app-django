@@ -3,46 +3,42 @@
 {% block title %} Homepage {% endblock %}
 {% block content %}
   <h1 class="text-center">Index page</h1>
-  {% if user.is_authenticated %}
-    {% if blog_posts %}
-      {% for post in blog_posts %}
-      <div class="col-md-12 blogShort">
-        <h1><a href="{% url 'blog_detail' id=post.id %}">{{ post.title }}</a></h1>
-        <span class="text-muted">By {{ post.author.username }} ||
-          {{ post.date }}
-        </span>
-        <article><p>
-          {{ post.content|truncatewords:110 }}
-          <a class="pull-right"
-            href="{% url 'blog_detail' id=post.id %}">READ MORE</a>
-        </p></article>
-      </div>
-      {% endfor %}
-      {% if blog_posts.has_other_pages %}
-        <ul class="pagination">
-          {% if blog_posts.has_previous %}
-            <li><a href="?page={{ blog_posts.previous_page_number }}">&laquo;</a></li>
+  {% if blog_posts %}
+    {% for post in blog_posts %}
+    <div class="col-md-12 blogShort">
+      <h1><a href="{% url 'blog_detail' id=post.id %}">{{ post.title }}</a></h1>
+      <span class="text-muted">By {{ post.author.username }} ||
+        {{ post.date }}
+      </span>
+      <article><p>
+        {{ post.content|truncatewords:110 }}
+        <a class="pull-right"
+          href="{% url 'blog_detail' id=post.id %}">READ MORE</a>
+      </p></article>
+    </div>
+    {% endfor %}
+    {% if blog_posts.has_other_pages %}
+      <ul class="pagination">
+        {% if blog_posts.has_previous %}
+          <li><a href="?page={{ blog_posts.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in blog_posts.paginator.page_range %}
+          {% if blog_posts.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
           {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
           {% endif %}
-          {% for i in blog_posts.paginator.page_range %}
-            {% if blog_posts.number == i %}
-              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-            {% else %}
-              <li><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-          {% endfor %}
-          {% if blog_posts.has_next %}
-            <li><a href="?page={{ blog_posts.next_page_number }}">&raquo;</a></li>
-          {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
-          {% endif %}
-        </ul>
-      {% endif %}
-    {% else %}
-      <p>No polls are available.</p>
+        {% endfor %}
+        {% if blog_posts.has_next %}
+          <li><a href="?page={{ blog_posts.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
     {% endif %}
   {% else %}
-    <h3 class="text-center">Login to create post and see post</h3>
+    <p>No posts are available.</p>
   {% endif %}
 {% endblock %}

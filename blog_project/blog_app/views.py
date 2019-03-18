@@ -33,6 +33,7 @@ def post_blog(request):
       form = BlogForm()
   return render(request, "blog_app/new_blog.html", {"form": form})
 
+@login_required(login_url='/login/')
 def blog_edit(request, id):
   blog = get_object_or_404(Blog, id=id)
   if request.method == "POST":
@@ -46,6 +47,7 @@ def blog_edit(request, id):
     form = BlogForm(instance=blog)
   return render(request, "blog_app/new_blog.html", {"form": form})
 
+@login_required(login_url='/login/')
 def blog_delete(request, id):
   blog = get_object_or_404(Blog, id=id)
   blog.delete()
