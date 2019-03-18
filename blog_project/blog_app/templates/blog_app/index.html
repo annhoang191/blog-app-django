@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %} Homepage {% endblock %}
 {% block content %}
-  <h1 class="text-center">Index page</h1>
+  <h1 class="text-center">{% trans "Welcome" %}</h1>
   {% if blog_posts %}
     {% for post in blog_posts %}
     <div class="col-md-12 blogShort">
