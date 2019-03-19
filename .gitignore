@@ -1,8 +1,8 @@
 .vscode
 /blog_project/blog_project/__pycache__
-/blog_project/blog_project/settings.py
 /blog_project/blog_app/__pycache__
 /blog_project/blog_app/migrations/__pycache__
 /blog_project/blog_app/models/__pycache__
 /blog_project/blog_app/tests/__pycache__
+/blog_project/.env
 env
