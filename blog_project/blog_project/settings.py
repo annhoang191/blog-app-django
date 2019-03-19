@@ -115,3 +115,21 @@ EMAIL_PORT = 587
 # EMAIL_HOST_PASSWORD = "sendgrid_password"
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+# LOG SQL QUERY IN CONSOLE
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        }
+    },
+    "loggers": {
+        "django.db.backends": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    }
+}
