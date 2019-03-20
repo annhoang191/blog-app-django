@@ -1,8 +1,9 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404, HttpResponse
 from django.contrib.auth import login, authenticate
-from .forms import BlogForm, SignupForm
-from .models import Blog
+from .forms import BlogForm, SignupForm, CommentForm
+from .models import Blog, Comment
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -23,7 +24,27 @@ def index(request):
 
 def blog_detail(request, id):
   blog = get_object_or_404(Blog, id=id)
-  return render(request, "blog_app/blog_detail.html", {"blog": blog})
+  if blog:
+    comments = blog.comment_set.all().order_by("-created")
+  form = CommentForm(request.POST or None)
+  if request.method == "POST":
+    response_data = {}
+    content = request.POST.get("content")
+    comment = Comment(content=content, author_id=request.user.id, commented_blog=blog, created=datetime.now())
+    comment.save()
+    response_data["result"] = "Create post successful!"
+    response_data["content"] = comment.content
+    response_data["created"] = comment.created.strftime("%B %d, %Y %I:%M %p")
+    response_data["author"] = comment.author.username
+    return HttpResponse(
+      json.dumps(response_data),
+      content_type="application/json"
+    )
+    # if form.is_valid():
+    #   comment = Comment.objects.create(content=content, author_id=request.user.id, commented_blog=blog, created=datetime.now())
+    #   comment.save()
+    #   return redirect(request.path)
+  return render(request, "blog_app/blog_detail.html", {"blog": blog, "form": form, "comments":comments})
 
 @login_required(login_url="/login/")
 def post_blog(request):

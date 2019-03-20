@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, Textarea, TextInput, PasswordInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Blog
+from .models import Blog, Comment
 
 
 class BlogForm(forms.ModelForm):
@@ -23,4 +23,15 @@ class SignupForm(UserCreationForm):
     fields = ("username", "email", "password1", "password2")
     widgets = {
       "username": TextInput(attrs={"class": "form-control"})
+    }
+
+class CommentForm(forms.ModelForm):
+  class Meta:
+    model = Comment
+    exclude = ["author", "commented_blog", "created"]
+    labels = {
+      "content": "Comment content"
+    }
+    widgets = {
+      "content": Textarea(attrs={"class": "form-control"})
     }

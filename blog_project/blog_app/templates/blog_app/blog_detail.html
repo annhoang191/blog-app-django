@@ -12,4 +12,38 @@
     </div>
     <p>{{ blog.content }}</p>
   </div>
+  <hr/>
+  <h4>Comments</h4>
+  <section id="comment-section">
+    {% if comments %}
+      {% for comment in comments %}
+        <article class="row">
+          <div class="col-md-10 col-sm-10">
+            <div class="panel panel-default arrow left">
+              <div class="panel-body">
+                <header class="text-left">
+                  <div class="comment-user"><i class="fa fa-user"></i> {{ comment.author.username }}
+                    <span class="text-muted">|| {{ comment.created }}</span></div>
+                </header>
+                <div class="comment-post">
+                  <p>{{ comment.content }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    {% endif %}
+  </section>
+  <hr />
+  {% if user.is_authenticated %}
+    <h4>Enter your comment</h4>
+    <div>
+      <form action="" method="POST" id="comment-form">
+        {% csrf_token %}
+        {{ form }}
+        <input class="btn btn-primary" type="submit" name="submit" value="Submit" />
+      </form>
+    </div>
+  {% endif %}
 {% endblock %}
